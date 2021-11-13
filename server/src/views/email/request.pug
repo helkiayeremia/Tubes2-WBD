@@ -1,0 +1,15 @@
+extends baseEmail
+
+block content
+  p Hi #{firstName},
+  p There is a new request waiting for response.
+  p You can check the request by clicking the button below. 
+  table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
+    tbody
+      tr
+        td(align='left')
+          table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+            tbody
+              tr
+                td
+                  a(href=`${url}`, target='_blank') Check Request
