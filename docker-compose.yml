@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  factory-database:
+    container_name: factory-database
+    image: mysql
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=dorayaki_factory
+    volumes:
+      - ./dbdata:/var/lib/mysql
+
+  factory-server:
+    container_name: factory-server
+    build: ./server
+    ports:
+      - "3000:3000"
+    depends_on:
+      - factory-database
+    volumes:
+      - ./server:/app
+    entrypoint:
+      ["/app/wait-for.sh", "factory-database:3306", "--", "npm", "start"]
+
+volumes:
+  dbdata:
+  server:

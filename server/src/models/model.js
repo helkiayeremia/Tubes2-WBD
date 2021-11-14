@@ -34,5 +34,9 @@ model.Recipe_Ingredient.belongsTo(model.Ingredient);
 model.Recipe.hasMany(model.Request, {
   foreignKey: 'recipe_id',
 });
+model.Request.belongsTo(model.Recipe, {
+  targetKey: 'id',
+  foreignKey: 'recipe_id',
+});
 
 module.exports = model;

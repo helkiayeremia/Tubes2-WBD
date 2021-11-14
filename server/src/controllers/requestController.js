@@ -80,8 +80,10 @@ exports.createRequest = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getRequests = catchAsync(async (req, res, next) => {
-  const requests = await Request.findAll();
+exports.getAllRequests = catchAsync(async (req, res, next) => {
+  const requests = await Request.findAll({
+    include: Recipe,
+  });
 
   res.status(200).json({
     status: 'success',
@@ -92,7 +94,7 @@ exports.getRequests = catchAsync(async (req, res, next) => {
 });
 
 exports.getRequest = catchAsync(async (req, res, next) => {
-  const request = await Request.findByPk(req.params.id);
+  const request = await Request.findByPk(req.params.id, { include: Recipe });
 
   if (!request) {
     return next(new AppError('No request found with that ID'));

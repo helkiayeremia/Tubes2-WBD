@@ -12,7 +12,7 @@ router
 
 router
   .route('/')
-  .get(requestController.getRequests)
+  .get(requestController.getAllRequests)
   .post(requestController.setRecipeId, requestController.createRequest);
 
 module.exports = router;
