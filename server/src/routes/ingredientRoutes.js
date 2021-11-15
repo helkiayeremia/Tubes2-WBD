@@ -7,7 +7,7 @@ const router = express.Router();
 router
   .route('/:id')
   .get(ingredientController.getIngredient)
-  .patch(authController.protect, ingredientController.updateIngredient)
+  .patch(ingredientController.updateIngredient)
   .delete(authController.protect, ingredientController.deleteIngredient);
 
 router
