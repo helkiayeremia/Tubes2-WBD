@@ -9,6 +9,8 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Email = require('../utils/email');
 
+const { Op } = require('sequelize');
+
 const getRequestRecipe = async (request, Recipe) => {
   const recipe_id = request.getDataValue('recipe_id');
   let recipe = await Recipe.findOne({
@@ -81,9 +83,22 @@ exports.createRequest = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllRequests = catchAsync(async (req, res, next) => {
-  const requests = await Request.findAll({
-    include: Recipe,
-  });
+  let requests;
+
+  if (req.query.reviewed) {
+    requests = await Request.findAll({
+      where: {
+        status: {
+          [Op.not]: null,
+        },
+      },
+      include: Recipe,
+    });
+  } else {
+    requests = await Request.findAll({
+      include: Recipe,
+    });
+  }
 
   res.status(200).json({
     status: 'success',
