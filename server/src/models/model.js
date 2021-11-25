@@ -11,6 +11,7 @@ model.Recipe = require('./recipeModel')(sequelize, DataTypes);
 model.Ingredient = require('./ingredientModel')(sequelize, DataTypes);
 model.User = require('./userModel')(sequelize, DataTypes);
 model.Request = require('./requestModel')(sequelize, DataTypes);
+model.LogRequest = require('./logRequestModel')(sequelize, DataTypes);
 
 // Set many to many relationship for Ingredient and Recipe
 model.Recipe.belongsToMany(model.Ingredient, {

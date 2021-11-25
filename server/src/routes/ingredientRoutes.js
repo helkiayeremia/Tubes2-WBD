@@ -13,6 +13,6 @@ router
 router
   .route('/')
   .get(ingredientController.getAllIngredient)
-  .post(authController.protect, ingredientController.createIngredient);
+  .post(ingredientController.createIngredient);
 
 module.exports = router;

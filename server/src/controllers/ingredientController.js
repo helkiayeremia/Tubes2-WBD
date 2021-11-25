@@ -3,6 +3,7 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
 exports.createIngredient = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   const ingredient = await Ingredient.create({
     name: req.body.name,
     stock: req.body.stock,
@@ -43,13 +44,15 @@ exports.getIngredient = catchAsync(async (req, res, next) => {
 });
 
 exports.updateIngredient = catchAsync(async (req, res, next) => {
-  const ingredient = await Ingredient.update(req.body, {
+  let ingredient = await Ingredient.update(req.body, {
     where: { id: req.params.id },
   });
 
-  res.status(204).json({
+  ingredient = await Ingredient.findByPk(req.params.id);
+
+  res.status(200).json({
     status: 'success',
-    data: null,
+    data: ingredient,
   });
 });
 
